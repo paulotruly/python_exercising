@@ -8,9 +8,9 @@
 
 # ---------------------------------------------------------------------------------------------------------
 
-Dólar = float(input("Informe o valor em dólar: "))
-Real = float(Dólar * 4.87)
-print("Convertendo para real: R${0}".format(Real))
+## Dólar = float(input("Informe o valor em dólar: "))
+## Real = float(Dólar * 4.87)
+## print("Convertendo para real: R${0}".format(Real))
 
 UmCentavo = 1
 CincoCentavos = 5
@@ -19,67 +19,87 @@ VinteCincoCentavos = 25
 CinquentaCentavos = 50
 UmReal = 1
 
-# Tentando fazer um looping que subtraia 1.00 real do valor até sobrar os centavos,
-# passando pra 0.5, 0.25, 0.10, 0.05 e 0.01 até que sobre zero. Legal ter uma variável
-# que conte quantas vezes cada moeda foi subtraída pra que encerre imprimindo quantas moedas
-# de cada foram utilizadas para atingir o valor inicial 
+######### testando #########
 
-######### TÔ QUASE LÁ HEHEHE !!!!!!!!!!! #########
+# Erros (muitos)
+# Real = 50.05: os centavos contam 4, o WHILE de 5 centavos não é puxado e vai pro de 1 centavo que não funciona também
+# Real = 50.10: funciona perfeitamente
+# Real = 50.25: funciona perfeitamente
+# Real = 50.50: funciona perfeitamente, só dá um erro no "testando centavos" porque não tem condição
+# Real = 50.75: funciona mas fica sobrando 1 centavo [?], o WHILE de 1 centavo tá muito errado 
+# Real = 50.80: funciona perfeitamente 
+# Real = 50.85: funciona mas fica sobrando 1 centavo [?], o WHILE de 1 centavo tá muito errado
+# Real = 50.90: funciona perfeitamente 
 
-Real = 49.65
+Real = 50.90
 ContandoMoedas = 0
-
 print(Real)
+
+######### 1 real #########
 
 while Real >= 1:
     for contador in range(1, int(Real+1)):
         # print(contador)
         ContandoMoedas = ContandoMoedas + 1
-    print("Fim da repetição")
     print("Serão utilizadas {0} moeda/s de 1 real.".format(ContandoMoedas))
     break
+
+######### testando centavos ######### 
 
 Decimais = str(Real-ContandoMoedas)
 #print(Decimais[2])
 #print(Decimais[3])
 Centavos = int(Decimais[2] + Decimais[3])
-#print(Centavos)
+print("Centavos: {0}".format(Centavos))
+
+######### 50 centavos #########
 
 while Centavos >= CinquentaCentavos:
     Centavos = Centavos - CinquentaCentavos
+    Centavos = Centavos + 1
     ContandoCentavos = 0
-    ContandoCentavos = ContandoCentavos + 1 
+    ContandoCentavos = ContandoCentavos + 1
     print("Será utilizada {0} moeda de 50 centavos.".format(ContandoCentavos))
-    #print(Centavos)
+    print("Centavos que sobram: {0}".format(Centavos))
     break
+
+######### 25 centavos #########
 
 while Centavos >= VinteCincoCentavos:
     Centavos = Centavos - VinteCincoCentavos
     ContandoCentavos = 0
     ContandoCentavos = ContandoCentavos + 1 
-    print("Serão utilizadas {0} moeda/s de 25 centavos.".format(ContandoCentavos))
-    #print(Centavos)
+    print("Serão utilizadas {0} moeda/s de 25 centavos.".format(ContandoCentavos))   
+    print("Centavos que sobram: {0}".format(Centavos))
     break
+
+######### 10 centavos #########
 
 while Centavos >= DezCentavos:
-    for contador in range(10, Centavos, 10):
-        #print(contador)
-        ContandoCentavos = ContandoCentavos + 1
+    Centavos = Centavos - DezCentavos
+    ContandoCentavos = 0
+    ContandoCentavos = ContandoCentavos + 1
     print("Serão utilizadas {0} moeda/s de 10 centavos.".format(ContandoCentavos))
-    #print(Centavos)
+    print("Centavos que sobram: {0}".format(Centavos))
     break
 
-while Centavos >= CincoCentavos:
-    for contador in range(5, Centavos, 5):
-        #print(contador)
-        ContandoCentavos = ContandoCentavos + 1
+######### 5 centavos #########
+
+while Centavos == CincoCentavos:
+    Centavos = Centavos - CincoCentavos
+    ContandoCentavos = 0
+    ContandoCentavos = ContandoCentavos + 1
     print("Serão utilizadas {0} moeda/s de 5 centavos.".format(ContandoCentavos))
-    #print(Centavos)
+    print("Centavos que sobram: {0}".format(Centavos))
     break
 
-#while Real < 0:
-#    for contador in range(0, int(Real+1), -1):
-#        print(contador)
-        
+######### 1 centavo #########
 
+while Centavos >= UmCentavo:
+    for contador in range(1, Centavos):
+        ContandoCentavos = 0
+        ContandoCentavos = ContandoCentavos + 1
+    print("Serão utilizadas {0} moeda/s de 1 centavo.".format(ContandoCentavos))
+    print("Centavos que sobram: {0}".format(Centavos))
+    break
 
