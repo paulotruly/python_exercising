@@ -8,98 +8,35 @@
 
 # ---------------------------------------------------------------------------------------------------------
 
-## Dólar = float(input("Informe o valor em dólar: "))
-## Real = float(Dólar * 4.87)
-## print("Convertendo para real: R${0}".format(Real))
+dolar = float(input("Informe o valor em dólar: "))
+real = float(dolar * 4.87)
+print("Convertendo para real: R${0}".format(real))
 
-UmCentavo = 1
-CincoCentavos = 5
-DezCentavos = 10
-VinteCincoCentavos = 25
-CinquentaCentavos = 50
-UmReal = 1
+centavos = int((real - int(real)) * 100 + 0.5) 
 
-######### testando #########
+contandoMoedas = 0
 
-# Erros (muitos)
-# Real = 50.05: os centavos contam 4, o WHILE de 5 centavos não é puxado e vai pro de 1 centavo que não funciona também
-# Real = 50.10: funciona perfeitamente
-# Real = 50.25: funciona perfeitamente
-# Real = 50.50: funciona perfeitamente, só dá um erro no "testando centavos" porque não tem condição
-# Real = 50.75: funciona mas fica sobrando 1 centavo [?], o WHILE de 1 centavo tá muito errado 
-# Real = 50.80: funciona perfeitamente 
-# Real = 50.85: funciona mas fica sobrando 1 centavo [?], o WHILE de 1 centavo tá muito errado
-# Real = 50.90: funciona perfeitamente 
+# Contando quantas moedas de 1 real serão necessárias
 
-Real = 50.90
-ContandoMoedas = 0
-print(Real)
+contando_umreal = int(real)
 
-######### 1 real #########
+while contando_umreal >= 1:
+    contando_umreal -= 1
+    contandoMoedas += 1 
 
-while Real >= 1:
-    for contador in range(1, int(Real+1)):
-        # print(contador)
-        ContandoMoedas = ContandoMoedas + 1
-    print("Serão utilizadas {0} moeda/s de 1 real.".format(ContandoMoedas))
-    break
+if contandoMoedas > 0:
+    print("Serão necessárias {0} moeda/s de 1 real. ".format(contandoMoedas))
 
-######### testando centavos ######### 
+if centavos > 0:
+    print("Centavos: {0}".format(centavos))
+    
+moedas = [50, 25, 10, 5, 1]
+nome_moedas = ['de 50 centavos', 'de 25 centavos', 'de 10 centavos', 'de 5 centavos', 'de 1 real']
 
-Decimais = str(Real-ContandoMoedas)
-#print(Decimais[2])
-#print(Decimais[3])
-Centavos = int(Decimais[2] + Decimais[3])
-print("Centavos: {0}".format(Centavos))
-
-######### 50 centavos #########
-
-while Centavos >= CinquentaCentavos:
-    Centavos = Centavos - CinquentaCentavos
-    Centavos = Centavos + 1
-    ContandoCentavos = 0
-    ContandoCentavos = ContandoCentavos + 1
-    print("Será utilizada {0} moeda de 50 centavos.".format(ContandoCentavos))
-    print("Centavos que sobram: {0}".format(Centavos))
-    break
-
-######### 25 centavos #########
-
-while Centavos >= VinteCincoCentavos:
-    Centavos = Centavos - VinteCincoCentavos
-    ContandoCentavos = 0
-    ContandoCentavos = ContandoCentavos + 1 
-    print("Serão utilizadas {0} moeda/s de 25 centavos.".format(ContandoCentavos))   
-    print("Centavos que sobram: {0}".format(Centavos))
-    break
-
-######### 10 centavos #########
-
-while Centavos >= DezCentavos:
-    Centavos = Centavos - DezCentavos
-    ContandoCentavos = 0
-    ContandoCentavos = ContandoCentavos + 1
-    print("Serão utilizadas {0} moeda/s de 10 centavos.".format(ContandoCentavos))
-    print("Centavos que sobram: {0}".format(Centavos))
-    break
-
-######### 5 centavos #########
-
-while Centavos == CincoCentavos:
-    Centavos = Centavos - CincoCentavos
-    ContandoCentavos = 0
-    ContandoCentavos = ContandoCentavos + 1
-    print("Serão utilizadas {0} moeda/s de 5 centavos.".format(ContandoCentavos))
-    print("Centavos que sobram: {0}".format(Centavos))
-    break
-
-######### 1 centavo #########
-
-while Centavos >= UmCentavo:
-    for contador in range(1, Centavos):
-        ContandoCentavos = 0
-        ContandoCentavos = ContandoCentavos + 1
-    print("Serão utilizadas {0} moeda/s de 1 centavo.".format(ContandoCentavos))
-    print("Centavos que sobram: {0}".format(Centavos))
-    break
-
+for i in range(len(moedas)):
+    qtd_moedas = centavos//moedas[i]
+    if qtd_moedas > 0:
+        print("Serão utilizadas {0} moeda/s {1}".format(qtd_moedas, nome_moedas[i]))
+        centavos %= moedas[i]
+    
+print("Centavos que sobram: {0}".format(centavos))
